@@ -29,7 +29,7 @@ def readable_size(size2, decimal_point=2):
 def main(argv):
 
 	vnumber = "0.3"
-	print('mfcmd.py v' + vnumber, file=sys.stderr)
+	print('MediaFire Uploader v' + vnumber, file=sys.stderr)
 
 	account = ''
 	passphrase = ''
