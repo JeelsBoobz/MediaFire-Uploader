@@ -18,6 +18,14 @@ import getopt, hashlib, os, sys, time
 from mediafire import MediaFireApi
 from mediafire.client import (File, Folder, MediaFireClient)
 
+
+def readable_size(size2, decimal_point=2):
+   for i in ['B', 'KB', 'MB', 'GB', 'TB']:
+      if size2 < 1024.0:
+         break
+      size2 /= 1024.0
+   return f"{size2:.{decimal_point}f}{i}"
+
 def main(argv):
 
 	vnumber = "0.3"
@@ -111,12 +119,12 @@ def main(argv):
 		usedstore = userinfo['user_info']['used_storage_size']
 		freestore = int(maxstore)-int(usedstore)
 		freestore_str = str(freestore)
-		print("Maximum storage: " + maxstore, file=sys.stderr)
-		print("Used storage: " + usedstore, file=sys.stderr)
-		print("Free storage: " + freestore_str, file=sys.stderr)
+		print("Maximum storage: " + readable_size(int(maxstore)), file=sys.stderr)
+		print("Used storage: " + readable_size(int(usedstore)), file=sys.stderr)
+		print("Free storage: " + readable_size(int(freestore_str)), file=sys.stderr)
 		localsize = os.path.getsize(filepath)
 		localsize_str = str(localsize)
-		print("Local file size: " + localsize_str, file=sys.stderr)
+		print("Local file size: " + readable_size(int(localsize_str)), file=sys.stderr)
 		if freestore <= localsize:
 			print("Error: available space will not suffice!", file=sys.stderr)
 			print("Error:space")
